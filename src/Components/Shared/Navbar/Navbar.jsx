@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -26,28 +27,33 @@ const Navbar = () => {
     const links = <>
 
         <li className="group flex  cursor-pointer flex-col">
-            Home<span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
+            <NavLink
+                className={({ isActive }) => isActive ? 'text-yellow-400 font-bold ' : 'font-semibold hover:scale-105'}
+                to="/"
+            >Home</NavLink><span className="mt-[2px] h-[3px] w-[0px] rounded-full bg-[#D99904] transition-all duration-300 group-hover:w-full"></span>
         </li>
         <li className="group flex  cursor-pointer flex-col">
-            CONTACT us<span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
+            CONTACT us<span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-[#D99904] transition-all duration-300 group-hover:w-full"></span>
         </li>
         <li className="group flex  cursor-pointer flex-col">
-            DASHBOARD<span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
+            DASHBOARD<span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-[#D99904]  transition-all duration-300 group-hover:w-full"></span>
         </li>
         <li className="group flex  cursor-pointer flex-col">
-            Our Menu<span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
+            <NavLink
+                className={({ isActive }) => isActive ? 'text-yellow-400 font-bold ' : 'font-semibold hover:scale-105'}
+                to="/menu">Our Menu</NavLink><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-[#D99904] transition-all duration-300 group-hover:w-full"></span>
         </li>
         <li className="group flex  cursor-pointer flex-col">
-            Our Shop<span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
+            Our Shop<span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-[#D99904]  transition-all duration-300 group-hover:w-full"></span>
         </li>
 
     </>
 
     return (
         <div className='bg-red-800'>
-            <nav className="flex max-w-screen-2xl mx-auto items-center justify-between px-4 py-2 text-white mb-10">
+            <nav className="flex max-w-screen-2xl mx-auto items-center justify-between px-4 py-2 text-white">
                 <div className="scale-100 cursor-pointer rounded-2xl px-3 py-2 text-xl font-semibold text-white transition-all duration-200 hover:scale-110">
-                    <h2 className='cinzel font-black'>BISTRO BOSS <br /> <span className='font-bold tracking-[8px]'>Restaurant</span></h2>
+                    <NavLink to="/" className='cinzel font-black'>BISTRO BOSS <br /> <span className='font-bold tracking-[8px]'>Restaurant</span></NavLink>
                 </div>
                 <ul className="hidden inter items-center justify-between gap-10 md:flex">
                     {links}

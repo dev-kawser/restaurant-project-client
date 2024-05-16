@@ -14,7 +14,7 @@ const Slider = () => {
     return (
         <div>
 
-            <div className="w-full h-60 sm:h-96 md:h-[580px] flex flex-col items-center justify-center gap-5 lg:gap-10 bg-cover bg-center before:absolute before:bg-black/50 before:inset-0 transform duration-1000 ease-linear"
+            <div className="w-full mt-10 h-60 sm:h-96 md:h-[580px] flex flex-col items-center justify-center gap-5 lg:gap-10 bg-cover bg-center before:absolute before:bg-black/50 before:inset-0 transform duration-1000 ease-linear"
                 style={{ backgroundImage: `url(${sliders[currentSlider].img})` }}>
                 {/* text container here */}
                 <div className="drop-shadow-lg text-white text-center px-5">
