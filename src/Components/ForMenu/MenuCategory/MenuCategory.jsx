@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
 import MenuItem from "../../Shared/MenuItem/MenuItem";
 import SectionCover from "../../Shared/SectionCover/SectionCover";
 
@@ -26,7 +27,11 @@ const MenuCategory = ({ item, coverImg, coverTitle, coverSubTitle }) => {
                 }
             </div>
             <div className="text-center">
-                <button className="border-b-4 mt-10 mx-auto font-semibold py-3 px-4 border-black hover:border-[#CD9003] rounded-md">ORDER YOUR FAVOURITE FOOD</button>
+
+                <Link to={`/shop/${coverTitle}`}>
+                    <button className="border-b-4 mt-10 mx-auto font-semibold py-3 px-4 border-black hover:border-[#CD9003] rounded-md">ORDER YOUR FAVORITE FOOD</button>
+                </Link>
+
             </div>
         </div>
     );

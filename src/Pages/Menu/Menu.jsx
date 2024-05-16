@@ -32,12 +32,12 @@ const Menu = () => {
                 heading={"OUR MENU"}
                 subHeading={"Would you like to try a dish?"}
             ></SectionCover>
-             <div className="mt-32 max-w-screen-xl mx-auto">
-             <SectionHeading
-                heading={"TODAY'S OFFER"}
-                subHeading={"---Don't miss---"}
-            ></SectionHeading>
-             </div>
+            <div className="mt-32 max-w-screen-xl mx-auto">
+                <SectionHeading
+                    heading={"TODAY'S OFFER"}
+                    subHeading={"---Don't miss---"}
+                ></SectionHeading>
+            </div>
 
             {/* offered items */}
             <MenuCategory item={offered}></MenuCategory>

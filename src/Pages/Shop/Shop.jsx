@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import FoodCard from "../../Components/Shared/FoodCard/FoodCard";
 import SectionCover from "../../Components/Shared/SectionCover/SectionCover";
 import useMenu from "../../Hooks/useMenu";
@@ -9,6 +10,9 @@ const Shop = () => {
 
     const [menu] = useMenu()
 
+    const { category } = useParams();
+    console.log(category);
+    
     const soup = menu.filter(item => item.category === 'soup')
     const salad = menu.filter(item => item.category === 'salad')
     const dessert = menu.filter(item => item.category === 'dessert')
