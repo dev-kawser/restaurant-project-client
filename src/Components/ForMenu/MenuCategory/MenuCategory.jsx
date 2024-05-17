@@ -28,7 +28,7 @@ const MenuCategory = ({ item, coverImg, coverTitle, coverSubTitle }) => {
             </div>
             <div className="text-center">
 
-                <Link to={`/shop/${coverTitle}`}>
+                <Link to="/shop">
                     <button className="border-b-4 mt-10 mx-auto font-semibold py-3 px-4 border-black hover:border-[#CD9003] rounded-md">ORDER YOUR FAVORITE FOOD</button>
                 </Link>
 
