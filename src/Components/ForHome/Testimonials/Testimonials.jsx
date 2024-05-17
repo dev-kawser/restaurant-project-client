@@ -21,7 +21,7 @@ const Testimonials = () => {
 
 
     useEffect(() => {
-        fetch('/reviews.json')
+        fetch('http://localhost:5000/reviews')
             .then(res => res.json())
             .then(data => {
                 setTestimonial(data)
