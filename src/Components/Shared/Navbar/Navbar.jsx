@@ -53,6 +53,12 @@ const Navbar = () => {
                 to="/shop"
             >Our Shop</NavLink><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-[#D99904]  transition-all duration-300 group-hover:w-full"></span>
         </li>
+        <li className="group flex  cursor-pointer flex-col">
+            <NavLink
+                className={({ isActive }) => isActive ? 'text-yellow-400 font-bold ' : 'font-semibold hover:scale-105'}
+                to="/login"
+            >Login</NavLink><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-[#D99904]  transition-all duration-300 group-hover:w-full"></span>
+        </li>
 
     </>
 
