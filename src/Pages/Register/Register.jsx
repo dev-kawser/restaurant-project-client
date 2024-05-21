@@ -1,15 +1,16 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
 import { Helmet } from "react-helmet";
+import Swal from "sweetalert2";
 
 
 const Register = () => {
 
-    const { registerUser, user } = useContext(AuthContext);
-    console.log(user);
+    const { registerUser, } = useContext(AuthContext);
+    const navigate = useNavigate()
 
     const {
         register,
@@ -44,6 +45,24 @@ const Register = () => {
                 })
                     .then()
                     .catch()
+                Swal.fire({
+                    title: "User Login Successfully",
+                    showClass: {
+                        popup: `
+                            animate__animated
+                            animate__fadeInUp
+                            animate__faster
+                            `
+                    },
+                    hideClass: {
+                        popup: `
+                            animate__animated
+                            animate__fadeOutDown
+                            animate__faster
+                            `
+                    }
+                });
+                navigate(location?.state ? location.state : "/login")
             })
     }
 

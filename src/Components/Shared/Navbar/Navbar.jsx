@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../../../Provider/AuthProvider';
 
 const Navbar = () => {
+
+    const { user, LogOut } = useContext(AuthContext)
+    console.log(user);
 
     const [dropDownState, setDropDownState] = useState(false);
     const dropDownMenuRef = useRef();
@@ -56,9 +60,27 @@ const Navbar = () => {
         <li className="group flex  cursor-pointer flex-col">
             <NavLink
                 className={({ isActive }) => isActive ? 'text-yellow-400 font-bold ' : 'font-semibold hover:scale-105'}
-                to="/login"
-            >Login</NavLink><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-[#D99904]  transition-all duration-300 group-hover:w-full"></span>
+                to="/secret"
+            >Secret</NavLink><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-[#D99904]  transition-all duration-300 group-hover:w-full"></span>
         </li>
+        {
+            user ?
+                <li className="group flex  cursor-pointer flex-col">
+                    <button
+                        onClick={() => LogOut()}
+                        className='font-semibold hover:scale-105'
+                    >Logout</button><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-[#D99904]  transition-all duration-300 group-hover:w-full"></span>
+                </li>
+                :
+                <li className="group flex  cursor-pointer flex-col">
+                    <NavLink
+                        className={({ isActive }) => isActive ? 'text-yellow-400 font-bold ' : 'font-semibold hover:scale-105'}
+                        to="/login"
+                    >Login</NavLink><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-[#D99904]  transition-all duration-300 group-hover:w-full"></span>
+                </li>
+        }
+
+
 
     </>
 
