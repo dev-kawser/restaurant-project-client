@@ -5,12 +5,16 @@ import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 
 const Register = () => {
 
     const { registerUser, } = useContext(AuthContext);
     const navigate = useNavigate()
+
+    const axiosPublic = useAxiosPublic()
 
     const {
         register,
@@ -20,50 +24,50 @@ const Register = () => {
 
     const onSubmit = data => {
 
-        // e.preventDefault()
-
-        // const form = e.target;
-        // const email = form.email.value
-        // const password = form.password.value
-
         const displayName = data.displayName
         const email = data.email
         const password = data.password
 
-        // const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-
-        // if (!regex.test(data.password)) {
-        //     return;
-        // }
-
-        console.log(displayName, email, password);
+        const userInfo = {
+            userName: displayName,
+            userEmail: email,
+        }
 
         registerUser(email, password)
             .then(result => {
                 updateProfile(result.user, {
                     displayName: displayName,
                 })
-                    .then()
+                    .then(() => {
+                        axiosPublic.post("/users", userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log("user:::", res.data);
+
+                                    Swal.fire({
+                                        title: "User Login Successfully",
+                                        showClass: {
+                                            popup: `
+                                                animate__animated
+                                                animate__fadeInUp
+                                                animate__faster
+                                                `
+                                        },
+                                        hideClass: {
+                                            popup: `
+                                                animate__animated
+                                                animate__fadeOutDown
+                                                animate__faster
+                                                `
+                                        }
+                                    });
+                                    navigate(location?.state ? location.state : "/login")
+                                }
+                            })
+                    })
                     .catch()
-                Swal.fire({
-                    title: "User Login Successfully",
-                    showClass: {
-                        popup: `
-                            animate__animated
-                            animate__fadeInUp
-                            animate__faster
-                            `
-                    },
-                    hideClass: {
-                        popup: `
-                            animate__animated
-                            animate__fadeOutDown
-                            animate__faster
-                            `
-                    }
-                });
-                navigate(location?.state ? location.state : "/login")
             })
+            .catch(err => console.log(err.message))
     }
 
     return (
@@ -108,6 +112,14 @@ const Register = () => {
                                 <input value={"Register"} type="submit" className="btn btn-primary" />
                             </div>
                         </form>
+                        <div className='p-10'>
+                            <div className='divider'>
+
+                            </div>
+                            <div>
+                                <SocialLogin></SocialLogin>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
