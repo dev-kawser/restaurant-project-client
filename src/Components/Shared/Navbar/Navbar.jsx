@@ -66,7 +66,7 @@ const Navbar = () => {
             >Secret</NavLink><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-[#D99904]  transition-all duration-300 group-hover:w-full"></span>
         </li>
         <li className="group flex  cursor-pointer flex-col">
-            <NavLink to="/">
+            <NavLink to="/dashboard/cart">
                 <div className="relative mx-auto hover:scale-105 p-2 rounded-md w-fit h-fit">
                     <FaCartShopping className='text-lg' />
                     <span className="absolute -right-2 -top-2 flex h-[24px] w-[24px] items-center justify-center rounded-full bg-blue-600 text-center text-[12px] text-white ">+{cart?.length}</span>
