@@ -2,13 +2,14 @@ import { FaAudioDescription, FaCalendar, FaCalendarCheck, FaHamburger, FaHome, F
 import { FaBook, FaCartShopping, FaList, FaShop, FaUser } from "react-icons/fa6";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../Hooks/useCart";
+import useAdmin from "../Hooks/useAdmin";
 
 
 const Dashboard = () => {
 
     const [cart] = useCart()
 
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
 
     return (
         <div className="flex gap-10">

@@ -8,7 +8,7 @@ import useCart from "../../../Hooks/useCart";
 
 const Navbar = () => {
 
-    const { user, LogOut } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
     const [cart] = useCart()
 
     const [dropDownState, setDropDownState] = useState(false);
@@ -77,7 +77,7 @@ const Navbar = () => {
             user ?
                 <li className="group flex  cursor-pointer flex-col">
                     <button
-                        onClick={() => LogOut()}
+                        onClick={() => logOut()}
                         className='font-semibold hover:scale-105'
                     >Logout</button><span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-[#D99904]  transition-all duration-300 group-hover:w-full"></span>
                 </li>

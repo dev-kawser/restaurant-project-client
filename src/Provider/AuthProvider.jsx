@@ -2,12 +2,15 @@
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/firebase.config";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null)
 
 const AuthProvider = ({ children }) => {
 
     const googleProvider = new GoogleAuthProvider();
+
+    const axiosPublic = useAxiosPublic()
 
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -26,8 +29,13 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, googleProvider)
     }
 
-    const LogOut = () => {
+    const logOut = () => {
+        console.log();
+        setUser(null)
+        setLoading(false);
+        localStorage.removeItem("access-token")
         return signOut(auth)
+
     }
 
 
@@ -39,17 +47,27 @@ const AuthProvider = ({ children }) => {
             if (currentUser) {
                 setUser(currentUser);
                 setLoading(false);
+
+                const userInfo = { email: currentUser.email }
+
+                axiosPublic.post("/jwt", userInfo)
+                    .then(res => {
+                        if (res.data.token) {
+                            localStorage.setItem("access-token", res.data.token)
+                        }
+                    })
             }
             else {
                 setUser(null)
                 setLoading(false);
+                localStorage.removeItem("access-token")
             }
         });
 
         return () => unSubscribe()
 
 
-    }, [])
+    }, [axiosPublic])
 
 
 
@@ -60,7 +78,7 @@ const AuthProvider = ({ children }) => {
         loginUser,
         loading,
         googleUser,
-        LogOut
+        logOut
     }
 
 
