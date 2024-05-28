@@ -2,6 +2,8 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useCart from "../../../Hooks/useCart";
+import useAuth from "../../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 
 const CheckoutForm = () => {
@@ -10,10 +12,13 @@ const CheckoutForm = () => {
     const elements = useElements();
     const [error, setError] = useState('')
     const [clientSecret, setClientSecret] = useState()
+    const [transitionId, setTransitionId] = useState()
+
+    const { user } = useAuth()
 
     const axiosSecure = useAxiosSecure()
 
-    const [cart] = useCart()
+    const [cart, reface] = useCart()
     const totalPrice = cart.reduce((acc, item) => acc + item.price, 0)
 
     // useEffect(() => {
@@ -63,6 +68,52 @@ const CheckoutForm = () => {
             setError('')
         }
 
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    email: user?.email || "anonymous",
+                    name: user?.displayName || "anonymous",
+                }
+            }
+        })
+
+        if (confirmError) {
+            console.log("confirm error");
+        } else {
+            console.log("payment intent", paymentIntent);
+            if (paymentIntent.status === 'succeeded') {
+                setTransitionId(paymentIntent.id)
+
+                // now save the payment into database 
+
+                const payment = {
+
+                    email: user.email,
+                    price: totalPrice,
+                    date: new Date().toISOString().split('T')[0],
+                    cartIds: cart.map(item => item._id),
+                    menuItemIds: cart.map(item => item.menuId),
+                    status: "pending",
+                    transitionId: paymentIntent.id
+
+                }
+
+                const res = await axiosSecure.post("/payments", payment)
+                console.log("paymentDone", res.data);
+                reface();
+                if (res.data?.paymentResult?.insertedId) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            }
+        }
+
     }
 
 
@@ -97,6 +148,11 @@ const CheckoutForm = () => {
                     error
                 }
             </p>
+            {
+                transitionId && <p className="text-lg text-green-500 font-semibold">
+                    Your Transition Id: {transitionId}
+                </p>
+            }
         </form>
     );
 };
