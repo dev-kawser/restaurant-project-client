@@ -80,6 +80,8 @@ const Navbar = () => {
             </li>
         }
 
+        
+
         <li className="group flex  cursor-pointer flex-col">
             <NavLink to="/dashboard/cart">
                 <div className="relative mx-auto hover:scale-105 p-2 rounded-md w-fit h-fit">

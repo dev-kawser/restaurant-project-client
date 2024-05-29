@@ -114,7 +114,7 @@ const router = createBrowserRouter([
                 element: <AdminRoutes>
                     <UpdateItem></UpdateItem>
                 </AdminRoutes>,
-                loader: ({ params }) => fetch(`http://localhost:5000/menu/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/menu/${params?.id}`)
             },
         ]
     }
